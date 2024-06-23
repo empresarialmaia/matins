@@ -12,7 +12,7 @@ para validar suas funcionalidades de maneira eficiente e precisa. O foco da auto
 Este projeto de automação requer as seguintes tecnologias:
 - **Git:** Sistema de controle de versão utilizado para gerenciar o código fonte do projeto.
 - **Java:** Linguagem de programação.
-- **Maven:** Ferramenta de automação de compilação e gerenciamento de dependências, essencial para organizar e construir o projeto de automação de testes.
+- **Maven:** Ferramenta de automação de construção e gerenciamento de dependências, essencial para organizar, compilar, testar e construir projetos de software, incluindo projetos de automação.
 
 ## Clonando o repositório
 Abra o terminal ou prompt de comando em seu computador, e utilize o comando **git clone** seguido da **URL** do repositório.
