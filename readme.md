@@ -6,11 +6,11 @@ para validar suas funcionalidades de maneira eficiente e precisa. O foco da auto
 - **Java:** Utilizada para desenvolver os scripts de teste e interagir com a aplicação web.
 - **Selenium:** Framework para automação de ações no navegador, como clicar em botões, preencher formulários e verificar elementos em páginas web.
 - **JUnit:** Framework para testes unitários em Java, utilizado para estruturar e executar testes que verificam partes específicas do código.
-- **Apache Commons IO:**  Framework que auxilia na manipulação de arquivos, o que inclui a cópia e movimentação de arquivos de evidências durante os testes.
+- **Apache Commons IO:**  Ferramenta que auxilia na manipulação de arquivos, o que inclui a cópia e movimentação de arquivos de evidências durante os testes.
 
 ## Tecnologias necessárias
 Este projeto de automação requer as seguintes tecnologias:
-- **Git:** Sistema de controle de versão distribuído, utilizado para gerenciar o código fonte do projeto.
+- **Git:** Sistema de controle de versão utilizado para gerenciar o código fonte do projeto.
 - **Java:** Linguagem de programação.
 - **Maven:** Ferramenta de automação de compilação e gerenciamento de dependências, essencial para organizar e construir o projeto de automação de testes.
 
@@ -23,5 +23,6 @@ Abra o terminal ou prompt de comando em seu computador, e utilize o comando **gi
 Após clonar o repositório, instale as dependências e execute os testes.
 - **mvn clean install**
 - **mvn test -Dtest=Executa**
+
 Os testes definidos serão executados, e você poderá ver o resultado diretamente no terminal.
 
