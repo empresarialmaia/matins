@@ -24,8 +24,13 @@ public class Metodos extends Driver {
 	}
 	
 	public void validarTitle( String titleDesejado) {
-		String titleCapturado = driver.getTitle();
-		assertEquals(titleDesejado, titleCapturado);
+		assertEquals(driver.getTitle(), titleDesejado);
+		
+		
+	}
+	
+	public void validarUrl(String urlEsperada) {
+		assertEquals(driver.getCurrentUrl(), urlEsperada);
 		
 	}
 	

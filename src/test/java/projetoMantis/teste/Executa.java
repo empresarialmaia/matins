@@ -23,22 +23,26 @@ public class Executa {
 	}
 
 	@Test
-	public void loginComSucesso() {
+	public void loginComSucessoTest() {
 		page.login("Eduardo_Rocha", "Mantis@2024");
 		page.evidenciaLoginComSucesso();
 
 	}
 
 	@Test
-	public void loginUsuarioInvalido() {
-		page.login("Teste_Teste", "Mantis@2024");
+	public void loginUsuarioInvalidoTest() {
+		page.login("Teste_Teste", "Mantis@2024");		
 		page.evidenciaUsuarioIncorreto();
 	}
 
 	@Test
-	public void loginSenhaInvalida() {
+	public void loginSenhaInvalidaTest() {
 		page.login("Eduardo_Rocha", "Teste@2024");
 		page.evidenciaSenhaIncorreta();
 
 	}
+	
+	
+		
+	
 }
