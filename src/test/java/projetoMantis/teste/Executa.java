@@ -12,31 +12,31 @@ public class Executa {
 	LoginPage page = new LoginPage();
 
 	@BeforeEach
-	public void iniciarTest() {
+	public void iniciarTeste() {
 		Navegadores.abrirNavegador("Edge");
 	}
 
 	@AfterEach
-	public void encerrarTest() {
+	public void encerrarTeste() {
 		Navegadores.fecharNavegador();
 
 	}
 
 	@Test
-	public void loginComSucessoTest() {
+	public void loginComSucessoTeste() {
 		page.login("Eduardo_Rocha", "Mantis@2024");
 		page.evidenciaLoginComSucesso();
 
 	}
 
 	@Test
-	public void loginUsuarioInvalidoTest() {
+	public void loginUsuarioInvalidoTeste() {
 		page.login("Teste_Teste", "Mantis@2024");		
 		page.evidenciaUsuarioIncorreto();
 	}
 
 	@Test
-	public void loginSenhaInvalidaTest() {
+	public void loginSenhaInvalidaTeste() {
 		page.login("Eduardo_Rocha", "Teste@2024");
 		page.evidenciaSenhaIncorreta();
 

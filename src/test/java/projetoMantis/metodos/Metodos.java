@@ -3,11 +3,14 @@ package projetoMantis.metodos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.time.Duration;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import projetoMantis.driver.Driver;
 
@@ -43,13 +46,11 @@ public class Metodos extends Driver {
 		}
 	}
 	
-	public void aguardar(int tempo) {
-		try {
-			Thread.sleep(tempo);
-		} catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
+		
+	public void aguardarElementoVisivel(By elemento, int segundos) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(elemento));
+		
 	}
 }
 	
