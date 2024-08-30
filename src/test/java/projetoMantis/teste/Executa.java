@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import projetoMantis.navegadores.Navegadores;
+import projetoMantis.metodos.Metodos;
 import projetoMantis.page.LoginPage;
 
 public class Executa {
@@ -13,12 +13,12 @@ public class Executa {
 
 	@BeforeEach
 	public void iniciarTeste() {
-		Navegadores.abrirNavegador("Edge");
+		Metodos.abrirNavegador("Chrome");
 	}
 
 	@AfterEach
 	public void encerrarTeste() {
-		Navegadores.fecharNavegador();
+		Metodos.fecharNavegador();
 
 	}
 
@@ -27,15 +27,15 @@ public class Executa {
 		page.login("Eduardo_Rocha", "Mantis@2024");
 		page.evidenciaLoginComSucesso(
 				"positivo", 
-				"loginComSucesso",
-				"Minha Visão - MantisBT",
-				"https://mantis-prova.base2.com.br/my_view_page.php" );
+				"loginComSucesso");
 
 	}
 
 	@Test
 	public void loginUsuarioInvalidoTeste() {
-		page.login("Teste_Teste", "Mantis@2024");		
+		page.login("Teste_Teste", "Mantis@2024");
+        page.validacaoUsuarioIncorreto(
+        "Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
 		page.evidenciaUsuarioIncorreto(
 				"negativo", 
 				"loginUsuarioInvalido");
@@ -44,6 +44,8 @@ public class Executa {
 	@Test
 	public void loginSenhaInvalidaTeste() {
 		page.login("Eduardo_Rocha", "Teste@2024");
+		page.validacaoUsuarioIncorreto(
+		"Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
 		page.evidenciaSenhaIncorreta(
 				"negativo", 
 				"loginSenhaInvalida");
