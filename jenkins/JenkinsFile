@@ -2,9 +2,8 @@ pipeline {
     agent any
     
     tools {
-        // Configura o Maven e o JDK que você vai usar
-        maven 'Maven 3.9.4'  // Nome da instalação do Maven configurada em Jenkins
-        jdk 'JDK 17'        // Nome da instalação do JDK configurada em Jenkins
+        maven 'Maven 3.9.4'
+        jdk 'JDK 17'
     }
     
     stages {
@@ -34,12 +33,18 @@ pipeline {
                 bat 'start /B java -jar myapp.jar > myapp.log 2>&1'
             }
         }
+
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', allowEmptyArchive: true
+            }
+        }
     }
     
     post {
         always {
-            // Executa ações que devem sempre acontecer, como arquivar resultados de testes
-            junit '**/target/surefire-reports/TEST-*.xml'  // Ajuste o caminho do relatório de testes conforme necessário
+            junit '**/target/surefire-reports/*.xml'
+            echo 'Results archived.'
         }
         success {
             echo 'Build and Tests succeeded!'
@@ -49,4 +54,3 @@ pipeline {
         }
     }
 }
-
