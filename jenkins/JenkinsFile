@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    
+    tools {
+        // Configura o Maven e o JDK que você vai usar
+        maven 'Maven 3.9.4'  // Nome da instalação do Maven configurada em Jenkins
+        jdk 'JDK 17'        // Nome da instalação do JDK configurada em Jenkins
+    }
+    
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/empresarialmaia/Mantis.git', credentialsId: 'github-token-jenkins']]
+                ])
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                bat 'mvn clean install'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+        
+        stage('Run') {
+            steps {
+                bat 'start /B java -jar myapp.jar > myapp.log 2>&1'
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Executa ações que devem sempre acontecer, como arquivar resultados de testes
+            junit '**/target/surefire-reports/TEST-*.xml'  // Ajuste o caminho do relatório de testes conforme necessário
+        }
+        success {
+            echo 'Build and Tests succeeded!'
+        }
+        failure {
+            echo 'Build or Tests failed.'
+        }
+    }
+}
+
