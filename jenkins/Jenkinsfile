@@ -64,7 +64,7 @@ pipeline {
             echo 'Build and Tests succeeded!'
         }
         failure {
-            echo 'Build or Tests failed.'
+            echo 'Build or Tests failed.' 
         }
     }
 }
