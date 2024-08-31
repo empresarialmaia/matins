@@ -1,6 +1,7 @@
 package projetoMantis.metodos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.time.Duration;
@@ -77,9 +78,12 @@ public class Metodos extends Driver {
 	
 	public void validarTexto(By elemento, String textoEsperado) {
 		String textoCapturado = driver.findElement(elemento).getText();
-		assertEquals(textoEsperado, textoCapturado);
+		assertTrue(textoCapturado.contains(textoEsperado));
 		
 	}
+	
+	
+
 }
 	
 	

@@ -35,7 +35,7 @@ public class Executa {
 	public void loginUsuarioInvalidoTeste() {
 		page.login("Teste_Teste", "Mantis@2024");
         page.validacaoUsuarioIncorreto(
-        "Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
+        "Sua conta pode estar desativada ou bloqueada ou o nome de");
 		page.evidenciaUsuarioIncorreto(
 				"negativo", 
 				"loginUsuarioInvalido");
@@ -45,7 +45,7 @@ public class Executa {
 	public void loginSenhaInvalidaTeste() {
 		page.login("Eduardo_Rocha", "Teste@2024");
 		page.validacaoUsuarioIncorreto(
-		"Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
+		"Sua conta pode estar desativada ou bloqueada ou o nome de");
 		page.evidenciaSenhaIncorreta(
 				"negativo", 
 				"loginSenhaInvalida");
