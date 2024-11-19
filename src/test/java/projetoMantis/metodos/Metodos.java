@@ -20,7 +20,11 @@ import projetoMantis.driver.Driver;
 
 public class Metodos extends Driver {	
 	
+		
 	public static void abrirNavegador(String tipo) {
+	
+		String url = "http://mantis-prova.base2.com.br/";
+		
 		if (tipo.equalsIgnoreCase(("Chrome"))) {
 			driver = new ChromeDriver();
 		} else if (tipo.equalsIgnoreCase("Firefox")) {
@@ -30,7 +34,7 @@ public class Metodos extends Driver {
 
 		}
 		driver.manage().window().maximize();
-		driver.get("http://mantis-prova.base2.com.br/");
+		driver.get(url);
 
 	}
 

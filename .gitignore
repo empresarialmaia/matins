@@ -1,1 +1,14 @@
-/target/
+evidencias/
+target/
+.project
+.classpath
+.settings/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+*.iml
+.idea/
+*.mvn/
+*~
+*.bak
