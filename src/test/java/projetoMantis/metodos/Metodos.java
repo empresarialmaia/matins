@@ -25,7 +25,7 @@ public class Metodos extends Driver {
 	
 		String url = "http://mantis-prova.base2.com.br/";
 		
-		if (tipo.equalsIgnoreCase(("Chrome"))) {
+		if (tipo.equalsIgnoreCase("Chrome")) {
 			driver = new ChromeDriver();
 		} else if (tipo.equalsIgnoreCase("Firefox")) {
 			driver = new FirefoxDriver();
