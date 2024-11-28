@@ -18,7 +18,7 @@ public class LoginPage extends Elementos{
 	
 
 	public void evidenciaLoginComSucesso(String historia, String nomeArquivo) { 
-		metodo.aguardarElementoVisivel(this.validacaoTextoLogado);	
+		metodo.aguardarElementoVisivel(this.textoLogado);	
 		metodo.printTela(historia, nomeArquivo);
 		
 	}
@@ -31,8 +31,21 @@ public class LoginPage extends Elementos{
 		metodo.printTela(historia, nomeArquivo);
 }
 
-	public void validacaoUsuarioIncorreto(String texto) {
-		metodo.validarTexto(textoLoginIncorreto, texto);
+	public void validacaoTexto(String texto) {
+		switch (texto) {
+		case "Eduardo_Rocha ( Eduardo Rocha )":
+			metodo.aguardarElementoVisivel(textoLogado);
+			metodo.validarTexto(textoLogado, texto);			
+			break;
+			
+		case "Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.":
+			metodo.validarTexto(textoLoginIncorreto, texto);			
+			break;	
+
+		default:
+			throw new IllegalArgumentException("Mensagem não reconhecida: " +texto);
+		}
+		
 	}
 	
 	

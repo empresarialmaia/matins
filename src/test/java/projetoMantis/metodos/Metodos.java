@@ -21,25 +21,37 @@ import projetoMantis.driver.Driver;
 public class Metodos extends Driver {	
 	
 		
-	public static void abrirNavegador(String tipo) {
+	public static void antesDoTest(String navegador) {
 	
 		String url = "http://mantis-prova.base2.com.br/";
 		
-		if (tipo.equalsIgnoreCase("Chrome")) {
-			driver = new ChromeDriver();
-		} else if (tipo.equalsIgnoreCase("Firefox")) {
-			driver = new FirefoxDriver();
-		} else if (tipo.equalsIgnoreCase("Edge")) {
+		switch (navegador) {
+		case "Chrome":
+			driver = new ChromeDriver();			
+			break;
+		case "Edge":	
 			driver = new EdgeDriver();
-
+			break;
+		
+		case "Firefox":	
+			driver = new FirefoxDriver();
+			break;			
+			
+		default:			
+		throw new IllegalArgumentException("Navegador não reconhecido "+navegador);
+		
 		}
+		
 		driver.manage().window().maximize();
 		driver.get(url);
 
 	}
 
-	public static void fecharNavegador( ) {	
-        driver.quit();
+	public static void depoisDoTest( ) {
+		if(driver != null) {
+		   driver.quit();
+		}
+        
     }
 	
 	
