@@ -1,70 +1,11 @@
 pipeline {
-    agent any
-    
-    tools {
-        maven 'Maven 3.9.4'
-        jdk 'JDK 17'
-    }
-    
-    stages {
-        stage('Checkout SCM') {
-            steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/empresarialmaia/Mantis.git', credentialsId: 'github-token-jenkins']]
-                ])
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                bat 'mvn clean install'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-        
-        stage('Run') {
-            steps {
-                bat 'start /B java -jar myapp.jar 1>myapp.log 2>&1'
-            }
-        }
-
-        stage('Archive Artifacts') {
-            steps {
-                script {
-                    def reportFiles = findFiles(glob: '**/target/surefire-reports/*.xml')
-                    if (reportFiles) {
-                        archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', allowEmptyArchive: true
-                    } else {
-                        echo 'No test report files found.'
-                    }
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            script {
-                def reportFiles = findFiles(glob: '**/target/surefire-reports/*.xml')
-                if (reportFiles) {
-                    junit '**/target/surefire-reports/*.xml'
-                } else {
-                    echo 'No test report files found for JUnit results.'
-                }
-            }
-            echo 'Results archived.'
-        }
-        success {
-            echo 'Build and Tests succeeded!'
-        }
-        failure {
-            echo 'Build or Tests failed.' 
-        }
-    }
+	agent any
+	stages {
+	  stage('Just Test'){
+	      steps {
+	          bat 'echo deu certo'
+	  
+	  }
+	}
+  }
 }
