@@ -1,15 +1,15 @@
 pipeline {
-	agent any
-	stages {
-	  stage('Build '){
-	      steps {
-	          bat 'mvn clean package -DskipTests=true'	  
-	  }
-	}
-	stage('Tests'){
-	      steps {
-	          bat 'mvn test'	  
-	  }
-	}
-  }
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                bat 'mvn clean package -DskipTests=true'
+            }
+        }
+        stage('Tests') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }    
 }

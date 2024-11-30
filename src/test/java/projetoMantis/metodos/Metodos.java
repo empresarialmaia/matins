@@ -87,7 +87,7 @@ public class Metodos extends Driver {
 	
 		
 	public void aguardarElementoVisivel(By elemento) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(elemento));
 		
 	}
