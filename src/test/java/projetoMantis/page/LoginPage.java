@@ -39,6 +39,7 @@ public class LoginPage extends Elementos{
 			break;
 			
 		case "Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.":
+			metodo.aguardarElementoVisivel(textoLoginIncorreto);
 			metodo.validarTexto(textoLoginIncorreto, texto);			
 			break;	
 
