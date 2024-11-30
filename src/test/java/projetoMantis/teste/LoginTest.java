@@ -34,7 +34,7 @@ public class LoginTest {
 
 	@Test
 	public void loginUsuarioInvalidoTeste() {
-		page.login("Teste_Teste", "Mantis@2024");
+		page.login("Errado_Errado", "Mantis@2024");
         page.validacaoTexto(
         "Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
 		page.evidenciaUsuarioIncorreto(
@@ -44,7 +44,7 @@ public class LoginTest {
 
 	@Test
 	public void loginSenhaInvalidaTeste() {
-		page.login("Eduardo_Rocha", "Teste@2024");
+		page.login("Eduardo_Rocha", "Errado@2024");
 		page.validacaoTexto(
 		"Sua conta pode estar desativada ou bloqueada ou o nome de usuário e a senha que você digitou não estão corretos.");
 		page.evidenciaSenhaIncorreta(
