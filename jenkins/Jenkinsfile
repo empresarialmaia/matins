@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                // Executa os testes unitários 
+                // Executa os testes 
                 echo 'Executando testes...'
                 bat 'mvn test -Dtest=Executa'
             }
