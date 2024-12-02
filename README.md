@@ -17,7 +17,7 @@ Este projeto de automação requer as seguintes tecnologias:
 ## Clonando o repositório
 Abra o terminal ou prompt de comando em seu computador, e utilize o comando **git clone** seguido da **URL** do repositório.
 - **git clone https://github.com/empresarialmaia/mantis.git**
-- **cd Mantis**
+- **cd mantis**
 
 ## Como executar os testes
 Após clonar o repositório, instale as dependências e execute os testes.

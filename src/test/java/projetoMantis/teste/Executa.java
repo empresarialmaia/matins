@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import projetoMantis.metodos.Metodos;
 import projetoMantis.page.LoginPage;
 
-public class LoginTest {
+public class Executa {
 
 	LoginPage page = new LoginPage();
 
@@ -23,12 +23,14 @@ public class LoginTest {
 	}
 
 	@Test
-	public void loginComSucessoTeste() {
+	public void loginComSucessoTeste( ) {
 		page.login("Eduardo_Rocha", "Mantis@2024");
 		page.validacaoTexto("Eduardo_Rocha ( Eduardo Rocha )");
 		page.evidenciaLoginComSucesso(
 				"positivo", 
 				"loginComSucesso");
+		
+
 
 	}
 
@@ -40,6 +42,7 @@ public class LoginTest {
 		page.evidenciaUsuarioIncorreto(
 				"negativo", 
 				"loginUsuarioInvalido");
+		
 	}
 
 	@Test
