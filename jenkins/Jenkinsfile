@@ -24,7 +24,7 @@ pipeline {
                     def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
 
                     // Diretório de destino do deploy
-                    def destino = "C:\\deploy\\projetoMantis\\"
+                    def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\"
 
                     // Criando o diretório de destino, caso não exista
                     bat "if not exist ${destino} mkdir ${destino}"
