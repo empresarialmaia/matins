@@ -24,7 +24,7 @@ pipeline {
                     // Verificando se o arquivo foi gerado
                     if (fileExists(artefato)) {
                         // Exemplo de deploy simples: copiando o artefato para um diretório de destino
-                        def destino = "C:/deploy/projetoMantis/"
+                        def destino = "C:\\deploy\\projetoMantis\\"
                         bat "mkdir ${destino}" // Cria o diretório se não existir
                         bat "copy ${artefato} ${destino}" // Copia o arquivo .jar para o diretório de deploy
 
