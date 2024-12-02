@@ -3,14 +3,45 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                // Etapa de build
                 bat 'mvn clean package -DskipTests=true'
             }
         }
         stage('Tests') {
             steps {
+                // Executa os testes unitários 
                 bat 'mvn test -Dtest=Executa'
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Iniciando deploy...'
+                    
+                    // Definindo o diretório do artefato gerado pelo Maven
+                    def artefato = "target/projetoMantis-0.0.1-SNAPSHOT.jar"
+                    
+                    // Verificando se o arquivo foi gerado
+                    if (fileExists(artefato)) {
+                        // Exemplo de deploy simples: copiando o artefato para um diretório de destino
+                        def destino = "C:/deploy/projetoMantis/"
+                        bat "mkdir ${destino}" // Cria o diretório se não existir
+                        bat "copy ${artefato} ${destino}" // Copia o arquivo .jar para o diretório de deploy
+
+                        // Exemplo de execução direta do arquivo JAR
+                        bat "java -jar ${destino}projetoMantis-0.0.1-SNAPSHOT.jar"
+
+                        echo 'Deploy realizado com sucesso!'
+                    } else {
+                        error "Artefato não encontrado: ${artefato}"
+                    }
+                }
+            }
+        }
     }
-    
+    post {
+        always {
+            echo 'Pipeline finalizado!'
+        }
+    }
 }
