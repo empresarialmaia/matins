@@ -17,7 +17,8 @@ pipeline {
             post {
                 always {
                     // Publica os resultados dos testes no formato JUnit
-                    junit 'C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\surefire-reports\\TEST-*.xml' // Ajuste o caminho conforme necessário
+                    // Ajuste o caminho conforme necessário, considerando onde os arquivos de relatório estão sendo gerados
+                    junit '**/target/surefire-reports/TEST-*.xml'  // Caminho para os relatórios JUnit
                 }
             }
         }
