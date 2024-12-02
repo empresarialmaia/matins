@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-       MAVEN_HOME = C:/Program Files/apache-maven-3.9.4
-       DEPLOY_PATH = 'C:/Users/hercu/eclipse-workspace/mantis/deploy/target/'  
-      MAVEN_REPO_URL = 'https://repo.maven.apache.org/maven2'
+        MAVEN_HOME = '"C:/Program Files/apache-maven-3.9.4"'  // Caminho com aspas
+        DEPLOY_PATH = 'C:/Users/hercu/eclipse-workspace/mantis/deploy/target/'
+        MAVEN_REPO_URL = 'https://repo.maven.apache.org/maven2'
     }
 
     stages {
@@ -27,6 +27,7 @@ pipeline {
                 script {
                     def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
                     if (fileExists(artefato)) {
+                        echo 'Artefato encontrado, iniciando o deploy...'
                         sshPublisher(publishers: [
                             sshPublisherDesc(
                                 configName: 'SSH_Config',
