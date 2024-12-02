@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-       MAVEN_HOME = C:\Program Files\apache-maven-3.9.4
-       DEPLOY_PATH = 'C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\'  
+       MAVEN_HOME = C:/Program Files/apache-maven-3.9.4
+       DEPLOY_PATH = 'C:/Users/hercu/eclipse-workspace/mantis/deploy/target/'  
       MAVEN_REPO_URL = 'https://repo.maven.apache.org/maven2'
     }
 
