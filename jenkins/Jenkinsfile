@@ -14,12 +14,6 @@ pipeline {
                echo 'Executando testes...'
                bat 'mvn test -Dtest=Executa'
            }
-           post {
-               always {
-                   // Publica os resultados dos testes no formato JUnit
-                   junit '**/target/test-classes/testng-*.xml'  // Ajuste o caminho conforme necessário
-               }
-           }
        }
        stage('Deploy') {
            steps {
@@ -49,3 +43,4 @@ pipeline {
        }
    }
 }
+
