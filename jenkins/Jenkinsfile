@@ -10,39 +10,27 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                // Executa os testes 
+                // Executa os testes
                 echo 'Executando testes...'
                 bat 'mvn test -Dtest=Executa'
+            }
+            post {
+                always {
+                    // Publica os resultados dos testes no formato JUnit
+                    junit '**/target/test-classes/testng-*.xml' // Ajuste o caminho conforme necessário
+                }
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Iniciando deploy...'
-
-                    //Caminho absoluto do artefato gerado pelo Maven
-                    def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
-
-                    //Diretório de destino do deploy
-                    def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
-
-                    //Criando o diretório de destino, caso não exista
-                    bat "if not exist ${destino} mkdir ${destino}"
-
-                    //Copiando o artefato para o diretório de destino
-                    if (fileExists(artefato)) {
-                        bat "copy \"${artefato}\" \"${destino}\""
-                        echo 'Deploy realizado com sucesso!'
-                    } else {
-                        error "Artefato não encontrado: ${artefato}"
-                    }
-                }
+                echo 'Iniciando deploy...'
+                bat 'mvn deploy'
             }
         }
     }
     post {
         always {
-            //Limpeza ou ações finais
+            // Limpeza ou ações finais
             echo 'Pipeline finalizado!'
         }
     }
