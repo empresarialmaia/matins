@@ -4,12 +4,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Etapa de build
+                echo 'Iniciando o processo de build...'
                 bat 'mvn clean package -DskipTests=true'
             }
         }
         stage('Tests') {
             steps {
                 // Executa os testes unitários 
+                echo 'Executando testes...'
                 bat 'mvn test -Dtest=Executa'
             }
         }
@@ -17,20 +19,19 @@ pipeline {
             steps {
                 script {
                     echo 'Iniciando deploy...'
-                    
-                    // Definindo o diretório do artefato gerado pelo Maven
-                    def artefato = "target/projetoMantis-0.0.1-SNAPSHOT.jar"
-                    
-                    // Verificando se o arquivo foi gerado
+
+                    // Caminho do artefato gerado pelo Maven
+                    def artefato = "target\\projetoMantis-0.0.1-SNAPSHOT.jar"
+
+                    // Diretório de destino do deploy
+                    def destino = "C:\\deploy\\projetoMantis\\"
+
+                    // Criando o diretório de destino, caso não exista
+                    bat "if not exist ${destino} mkdir ${destino}"
+
+                    // Copiando o artefato para o diretório de destino
                     if (fileExists(artefato)) {
-                        // Exemplo de deploy simples: copiando o artefato para um diretório de destino
-                        def destino = "C:\\deploy\\projetoMantis\\"
-                        bat "mkdir ${destino}" // Cria o diretório se não existir
-                        bat "copy ${artefato} ${destino}" // Copia o arquivo .jar para o diretório de deploy
-
-                        // Exemplo de execução direta do arquivo JAR
-                        bat "java -jar ${destino}projetoMantis-0.0.1-SNAPSHOT.jar"
-
+                        bat "copy ${artefato} ${destino}"
                         echo 'Deploy realizado com sucesso!'
                     } else {
                         error "Artefato não encontrado: ${artefato}"
@@ -41,6 +42,7 @@ pipeline {
     }
     post {
         always {
+            // Limpeza ou ações finais
             echo 'Pipeline finalizado!'
         }
     }
