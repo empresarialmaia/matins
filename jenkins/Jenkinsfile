@@ -17,7 +17,7 @@ pipeline {
             post {
                 always {
                     // Publica os resultados dos testes no formato JUnit
-                    junit '**/target/test-classes/testng-*.xml' // Ajuste o caminho conforme necessário
+                    junit 'C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\surefire-reports\\TEST-*.xml' // Ajuste o caminho conforme necessário
                 }
             }
         }
