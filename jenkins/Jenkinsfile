@@ -20,8 +20,8 @@ pipeline {
                 script {
                     echo 'Iniciando deploy...'
 
-                    // Caminho do artefato gerado pelo Maven
-                    def artefato = "target\\projetoMantis-0.0.1-SNAPSHOT.jar"
+                    // Caminho absoluto do artefato gerado pelo Maven
+                    def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
 
                     // Diretório de destino do deploy
                     def destino = "C:\\deploy\\projetoMantis\\"
@@ -31,7 +31,7 @@ pipeline {
 
                     // Copiando o artefato para o diretório de destino
                     if (fileExists(artefato)) {
-                        bat "copy ${artefato} ${destino}"
+                        bat "copy \"${artefato}\" \"${destino}\""
                         echo 'Deploy realizado com sucesso!'
                     } else {
                         error "Artefato não encontrado: ${artefato}"
