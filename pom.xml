@@ -42,14 +42,6 @@
         </dependency>
     </dependencies>
 
-    <!-- Configuração do repositório de deploy -->
-    <distributionManagement>
-        <repository>
-            <id>repo-id</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </distributionManagement>
-
     <build>
         <plugins>
             <!-- Compiler Plugin -->
@@ -83,20 +75,6 @@
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
-            </plugin>
-
-            <!-- Deploy Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
