@@ -1,46 +1,87 @@
 pipeline {
-   agent any
-   stages {
-       stage('Build') {
-           steps {
-               // Etapa de build
-               echo 'Iniciando o processo de build...'
-               bat 'mvn clean package -DskipTests=true'
-           }
-       }
-       stage('Tests') {
-           steps {
-               // Executa os testes
-               echo 'Executando testes...'
-               bat 'mvn test -Dtest=Executa'
-           }
-       }
-       stage('Deploy') {
-           steps {
-               script {
-                   echo 'Iniciando deploy...'
-                   // Caminho absoluto do artefato gerado pelo Maven
-                   def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\projetoMantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
-                   // Diretório de destino do deploy
-                   def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
-                   // Criando o diretório de destino, caso não exista
-                   bat "if not exist ${destino} mkdir ${destino}"
-                   // Copiando o artefato para o diretório de destino
-                   if (fileExists(artefato)) {
-                       bat "copy \"${artefato}\" \"${destino}\""
-                       echo 'Deploy realizado com sucesso!'
-                   } else {
-                       error "Artefato não encontrado: ${artefato}"
-                   }
-               }
-           }
-       }
-   }
-   post {
-       always {
-           // Limpeza ou ações finais
-           echo 'Pipeline finalizado!'
-       }
-   }
-}
+    agent any
 
+    tools {
+        jdk 'JAVA_HOME'
+        maven 'MAVEN_HOME'
+    }
+
+    environment {
+        TEST_REPO = 'https://github.com/empresarialmaia/matins'
+        TEST_DIR = 'matins'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Clonando os repositórios'
+                dir("${TEST_DIR}") {
+                    git branch: 'main', url: "${TEST_REPO}"
+                }
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                echo 'Construindo a aplicação'
+                dir("${TEST_DIR}") {
+                    bat 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Executar os Testes') {
+            steps {
+                echo 'Executando os testes'
+                dir("${TEST_DIR}") {
+                    bat 'mvn test'
+                }
+            }
+        }
+
+        stage('Build Artefato') {
+            steps {
+                echo 'Criando o artefato final'
+                bat 'mvn clean package -DskipTests=true'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Iniciando o deploy...'
+                    // Caminho do artefato gerado pelo Maven
+                    def artefato = "${TEST_DIR}/target/projetoMantis-0.0.1-SNAPSHOT.jar"
+                    // Caminho do destino para o deploy
+                    def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
+                    
+                    // Criando o diretório de destino, caso não exista
+                    bat "if not exist ${destino} mkdir ${destino}"
+                    
+                    // Copiando o artefato para o destino
+                    if (fileExists(artefato)) {
+                        bat "copy \"${artefato}\" \"${destino}\""
+                        echo 'Deploy realizado com sucesso!'
+                    } else {
+                        error "Artefato não encontrado: ${artefato}"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Gerando status report'
+            script {
+                if (currentBuild.result == 'SUCCESS') {
+                    echo 'Pipeline executada com sucesso'
+                } else if (currentBuild.result == 'FAILURE') {
+                    echo 'EXECUÇÃO DA PIPELINE FALHOU'
+                } else {
+                    echo 'Pipeline com status desconhecido'
+                }
+            }
+        }
+    }
+}
