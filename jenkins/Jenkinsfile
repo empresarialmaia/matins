@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo 'Executando os testes'
                 dir("${TEST_DIR}") {
-                    bat 'mvn test'
+                    bat 'mvn test -Dtest=Executa'
                 }
             }
         }
