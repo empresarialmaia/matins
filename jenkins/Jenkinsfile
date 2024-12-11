@@ -82,6 +82,9 @@ pipeline {
                     echo 'Pipeline com status desconhecido'
                 }
             }
+            echo 'Publicando resultados dos testes...'
+            // Publicar os resultados dos testes do Surefire
+            junit '**/target/surefire-reports/*.xml'
         }
     }
 }
