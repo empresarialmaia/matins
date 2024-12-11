@@ -47,23 +47,23 @@ pipeline {
         }
 
         stage('Deploy') {
-    steps {
-        script {
-            echo 'Iniciando o deploy...'
-            // Caminho absoluto do artefato gerado pelo Maven
-            def artefato = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"  // Caminho absoluto
-            // Diretório de destino do deploy
-            def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
-            
-            // Criando o diretório de destino, caso não exista
-            bat "if not exist ${destino} mkdir ${destino}"
-            
-            // Copiando o artefato para o diretório de destino
-            if (fileExists(artefato)) {
-                bat "copy \"${artefato}\" \"${destino}\""
-                echo 'Deploy realizado com sucesso!'
-            } else {
-                error "Artefato não encontrado: ${artefato}"
+            steps {
+                script {
+                    echo 'Iniciando o deploy...'
+                    // Caminho do artefato gerado pelo Maven
+                    def artefato = "${TEST_DIR}\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"  // Corrigido o caminho do artefato
+                    // Caminho do destino para o deploy
+                    def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
+                    
+                    // Criando o diretório de destino, caso não exista
+                    bat "if not exist ${destino} mkdir ${destino}"
+                    
+                    // Copiando o artefato para o destino
+                    if (fileExists(artefato)) {
+                        bat "copy \"${artefato}\" \"${destino}\""
+                        echo 'Deploy realizado com sucesso!'
+                    } else {
+                        error "Artefato não encontrado: ${artefato}"
                     }
                 }
             }
