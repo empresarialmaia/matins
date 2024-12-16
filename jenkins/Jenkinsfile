@@ -53,7 +53,7 @@ pipeline {
                     // Caminho do artefato gerado pelo Maven
                     def artefato = "${TEST_DIR}\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"  // Corrigido o caminho do artefato
                     // Caminho do destino para o deploy
-                    def destino = "C:\\Users\\hercu\\eclipse-workspace\\mantis\\deploy\\target\\"
+                    def destino = "C:\\Desenvolvimento\\deploy\\projetoMantis\\target\\"
                     
                     // Criando o diretório de destino, caso não exista
                     bat "if not exist ${destino} mkdir ${destino}"
