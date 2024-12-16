@@ -9,63 +9,46 @@ pipeline {
     environment {
         TEST_REPO = 'https://github.com/empresarialmaia/matins'
         TEST_DIR = 'matins'
+        DESTINO = "C:\\Desenvolvimento\\deploy\\projetoMantis\\target\\"
+        ARTEFATO = "${TEST_DIR}\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Clonando os repositórios'
-                dir("${TEST_DIR}") {
-                    git branch: 'main', url: "${TEST_REPO}"
-                }
+                echo 'Clonando o repositório'
+                git branch: 'main', url: "${TEST_REPO}"
             }
         }
 
         stage('Build Application') {
             steps {
                 echo 'Construindo a aplicação'
-                dir("${TEST_DIR}") {
-                    bat 'mvn clean install'
-                }
+                bat 'mvn clean install -f ${TEST_DIR}/pom.xml'
             }
         }
 
         stage('Executar os Testes') {
             steps {
                 echo 'Executando os testes'
-                dir("${TEST_DIR}") {
-                    bat 'mvn test -Dtest=Executa'
-                }
+                bat 'mvn test -Dtest=Executa -f ${TEST_DIR}/pom.xml'
             }
         }
 
         stage('Build Artefato') {
             steps {
                 echo 'Criando o artefato final'
-                bat 'mvn clean package -DskipTests=true'
+                bat 'mvn clean package -DskipTests=true -f ${TEST_DIR}/pom.xml'
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Iniciando o deploy...'
-                    // Caminho do artefato gerado pelo Maven
-                    def artefato = "${TEST_DIR}\\target\\projetoMantis-0.0.1-SNAPSHOT.jar"  // Corrigido o caminho do artefato
-                    // Caminho do destino para o deploy
-                    def destino = "C:\\Desenvolvimento\\deploy\\projetoMantis\\target\\"
-                    
-                    // Criando o diretório de destino, caso não exista
-                    bat "if not exist ${destino} mkdir ${destino}"
-                    
-                    // Copiando o artefato para o destino
-                    if (fileExists(artefato)) {
-                        bat "copy \"${artefato}\" \"${destino}\""
-                        echo 'Deploy realizado com sucesso!'
-                    } else {
-                        error "Artefato não encontrado: ${artefato}"
-                    }
-                }
+                echo 'Iniciando o deploy...'
+                bat "if not exist ${DESTINO} mkdir ${DESTINO}"
+
+                // Copiando o artefato, se existir
+                bat "if exist ${ARTEFATO} copy ${ARTEFATO} ${DESTINO} || echo Artefato não encontrado!"
             }
         }
     }
@@ -74,13 +57,8 @@ pipeline {
         always {
             echo 'Gerando status report'
             script {
-                if (currentBuild.result == 'SUCCESS') {
-                    echo 'Pipeline executada com sucesso'
-                } else if (currentBuild.result == 'FAILURE') {
-                    echo 'EXECUÇÃO DA PIPELINE FALHOU'
-                } else {
-                    echo 'Pipeline com status desconhecido'
-                }
+                def status = currentBuild.result == 'SUCCESS' ? 'Pipeline executada com sucesso' : 'EXECUÇÃO DA PIPELINE FALHOU'
+                echo status
             }
         }
     }
