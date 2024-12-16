@@ -14,23 +14,11 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout, Build, and Test') {
             steps {
-                echo 'Clonando o repositório'
+                echo 'Clonando repositório e construindo a aplicação'
                 git branch: 'main', url: "${TEST_REPO}"
-            }
-        }
-
-        stage('Build Application') {
-            steps {
-                echo 'Construindo a aplicação'
                 bat 'mvn clean install -f ${TEST_DIR}/pom.xml'
-            }
-        }
-
-        stage('Executar os Testes') {
-            steps {
-                echo 'Executando os testes'
                 bat 'mvn test -Dtest=Executa -f ${TEST_DIR}/pom.xml'
             }
         }
@@ -46,8 +34,6 @@ pipeline {
             steps {
                 echo 'Iniciando o deploy...'
                 bat "if not exist ${DESTINO} mkdir ${DESTINO}"
-
-                // Copiando o artefato, se existir
                 bat "if exist ${ARTEFATO} copy ${ARTEFATO} ${DESTINO} || echo Artefato não encontrado!"
             }
         }
