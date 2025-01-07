@@ -83,5 +83,19 @@ pipeline {
                 }
             }
         }
+        success {
+            echo 'Testes passaram com sucesso!'
+        }
+        failure {
+            echo 'Testes falharam. Verifique os logs para mais detalhes.'
+        }
+        unstable {
+            echo 'A execução da pipeline está instável.'
+        }
+        cleanup {
+            echo 'Finalizando a execução do pipeline.'
+        }
     }
+
+    junit allowEmptyResults: true, testResults: 'target/test-*.xml'  // Ajustado para resultados de testes em formato XML
 }
